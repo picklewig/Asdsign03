@@ -96,8 +96,7 @@
 
 namespace CS3358_SP2023
 {
-   class sequence
-   {
+   class sequence{
    public:
       // TYPEDEFS and MEMBER CONSTANTS
       typedef double value_type;
