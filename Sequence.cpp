@@ -58,7 +58,7 @@ namespace CS3358_SP2023
    sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity){
       data = new value_type[capacity];
       for(size_type index{0}; index < used; index++){
-          data[current_index] = source.data[current_index];
+          data[index] = source.data[index];
       }
    }
 
@@ -108,9 +108,17 @@ namespace CS3358_SP2023
       cout << "remove_current() not implemented yet" << endl;
    }
 
-   sequence& sequence::operator=(const sequence& source)
-   {
-      cout << "operator=(const sequence& source) not implemented yet" << endl;
+   sequence& sequence::operator=(const sequence& source){
+      if(this != &source){
+          value_type* newData = new value_type[source.capacity];
+          for(size_type index{0}; index < source.used; index++){
+              newData[index] = source.data[index];
+          }
+          delete[] data;
+          data = newData;
+          capacity = source.capacity;
+          used = source.used;
+      }
       return *this;
    }
 
