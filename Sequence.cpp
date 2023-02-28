@@ -46,25 +46,41 @@ using namespace std;
 namespace CS3358_SP2023
 {
    // CONSTRUCTORS and DESTRUCTOR
-   sequence::sequence(size_type initial_capacity)
-   {
-      cout << "sequence(size_type initial_capacity) not implemented yet" << endl;
+   sequence::sequence(size_type initial_capacity): used(0), capacity(DEFAULT_CAPACITY){
+      if(initial_capacity > 0){
+          capacity = initial_capacity;
+      } else{
+          capacity = 1;
+      }
+      data = new value_type[capacity];
    }
 
-   sequence::sequence(const sequence& source)
-   {
-      cout << "sequence(const sequence& source) not implemented yet" << endl;
+   sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity){
+      data = new value_type[capacity];
+      for(size_type index{0}; index < used; index++){
+          data[current_index] = source.data[current_index];
+      }
    }
 
-   sequence::~sequence()
-   {
-      cout << "~sequence() not implemented yet" << endl;
+   sequence::~sequence(){
+      delete[] data;
    }
 
    // MODIFICATION MEMBER FUNCTIONS
-   void sequence::resize(size_type new_capacity)
-   {
-      cout << "resize(size_type new_capacity) not implemented yet" << endl;
+   void sequence::resize(size_type new_capacity){
+      if(new_capacity < used){
+          new_capacity = used;
+      }
+      if(new_capacity < 1){
+          new_capacity = 1;
+      }
+      value_type* newSequence = new value_type[new_capacity];
+      for(size_type index{0}; index < used; index++){
+          newSequence[index] = data[index];
+      }
+      delete[] data;
+      data = newSequence;
+      capacity = new_capacity;
    }
 
    void sequence::start()
@@ -99,10 +115,8 @@ namespace CS3358_SP2023
    }
 
    // CONSTANT MEMBER FUNCTIONS
-   sequence::size_type sequence::size() const
-   {
-      cout << "size() not implemented yet" << endl;
-      return 0; // dummy value returned
+   sequence::size_type sequence::size() const{
+       return used;
    }
 
    bool sequence::is_item() const
