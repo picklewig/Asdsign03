@@ -103,11 +103,11 @@ namespace CS3358_SP2023
       typedef std::size_t size_type;
       static const size_type DEFAULT_CAPACITY = 30;
       // CONSTRUCTORS and DESTRUCTOR
-      sequence(size_type initial_capacity = DEFAULT_CAPACITY);
-      sequence(const sequence& source);
-      ~sequence();
+      sequence(size_type initial_capacity = DEFAULT_CAPACITY);//
+      sequence(const sequence& source);//
+      ~sequence();//
       // MODIFICATION MEMBER FUNCTIONS
-      void resize(size_type new_capacity);
+      void resize(size_type new_capacity);//
       void start();
       void advance();
       void insert(const value_type& entry);
@@ -115,7 +115,7 @@ namespace CS3358_SP2023
       void remove_current();
       sequence& operator=(const sequence& source);
       // CONSTANT MEMBER FUNCTIONS
-      size_type size() const;
+      size_type size() const;//
       bool is_item() const;
       value_type current() const;
    private:

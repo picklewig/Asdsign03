@@ -47,12 +47,13 @@ namespace CS3358_SP2023
 {
    // CONSTRUCTORS and DESTRUCTOR
    sequence::sequence(size_type initial_capacity): used(0), capacity(DEFAULT_CAPACITY){
-      if(initial_capacity > 0){
-          capacity = initial_capacity;
-      } else{
-          capacity = 1;
-      }
-      data = new value_type[capacity];
+       assert(initial_capacity > 0);
+       if(initial_capacity > 0){
+           capacity = initial_capacity;
+       } else{
+           capacity = 1;
+       }
+       data = new value_type[capacity];
    }
 
    sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity){
@@ -68,24 +69,26 @@ namespace CS3358_SP2023
 
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity){
-      if(new_capacity < used){
-          new_capacity = used;
-      }
-      if(new_capacity < 1){
-          new_capacity = 1;
-      }
-      value_type* newSequence = new value_type[new_capacity];
-      for(size_type index{0}; index < used; index++){
-          newSequence[index] = data[index];
-      }
-      delete[] data;
-      data = newSequence;
-      capacity = new_capacity;
+       assert(new_capacity > 0);
+       if(new_capacity < used){
+           new_capacity = used;
+       }
+       if(new_capacity < 1){
+           new_capacity = 1;
+       }
+       value_type* newSequence = new value_type[new_capacity];
+       for(size_type index{0}; index < used; index++){
+           newSequence[index] = data[index];
+       }
+       delete[] data;
+       data = newSequence;
+       capacity = new_capacity;
    }
 
-   void sequence::start()
-   {
-      cout << "start() not implemented yet" << endl;
+   void sequence::start(){
+      if(data[0]){
+          current_index = data[0];
+      }
    }
 
    void sequence::advance()
@@ -127,16 +130,13 @@ namespace CS3358_SP2023
        return used;
    }
 
-   bool sequence::is_item() const
-   {
-      cout << "is_item() not implemented yet" << endl;
-      return false; // dummy value returned
+   bool sequence::is_item() const{
+       return (current_index >= 0) and (current_index < used);
    }
 
-   sequence::value_type sequence::current() const
-   {
-      cout << "current() not implemented yet" << endl;
-      return value_type(); // dummy value returned
+   sequence::value_type sequence::current() const{
+       assert(is_item());
+       return current_index;
    }
 }
 
