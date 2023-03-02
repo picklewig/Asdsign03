@@ -108,16 +108,16 @@ namespace CS3358_SP2023
       ~sequence();//
       // MODIFICATION MEMBER FUNCTIONS
       void resize(size_type new_capacity);//
-      void start();
-      void advance();
-      void insert(const value_type& entry);
-      void attach(const value_type& entry);
+      void start();//
+      void advance();//
+      void insert(const value_type& entry);//
+      void attach(const value_type& entry);//
       void remove_current();
       sequence& operator=(const sequence& source);
       // CONSTANT MEMBER FUNCTIONS
       size_type size() const;//
-      bool is_item() const;
-      value_type current() const;
+      bool is_item() const;//
+      value_type current() const;//
    private:
       value_type* data;
       size_type used;

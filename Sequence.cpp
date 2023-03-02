@@ -144,9 +144,17 @@ namespace CS3358_SP2023
        }
    }
 
-   void sequence::remove_current()
-   {
-      cout << "remove_current() not implemented yet" << endl;
+   void sequence::remove_current(){
+       assert(is_item());
+       if(is_item()){
+           for(size_type index{current_index+1}; index < used; index++){
+               data[index-1] = data[index];
+           }
+           used--;
+           if(current_index >= used){
+               current_index = -1;
+           }
+       }
    }
 
    sequence& sequence::operator=(const sequence& source){
