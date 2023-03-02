@@ -132,7 +132,6 @@ namespace CS3358_SP2023
            data[current_index+1] = entry;
            current_index++;
            used++;
-           cout << endl << data[current_index] << endl;
        } else{
            if(used >= capacity){
                resize(int(1.5*capacity) + 1);
@@ -140,7 +139,6 @@ namespace CS3358_SP2023
            data[used] = entry;
            current_index = used;
            used++;
-           cout << endl << data[current_index] << endl;
        }
    }
 
