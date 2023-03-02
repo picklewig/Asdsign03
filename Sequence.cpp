@@ -87,23 +87,61 @@ namespace CS3358_SP2023
 
    void sequence::start(){
       if(data[0]){
-          current_index = data[0];
+          current_index = 0;
       }
    }
 
-   void sequence::advance()
-   {
-      cout << "advance() not implemented yet" << endl;
+   void sequence::advance(){
+       assert(is_item());
+       if((is_item()) and (current_index < used)){
+           current_index++;
+       } else{
+           current_index = -1;
+       }
    }
 
-   void sequence::insert(const value_type& entry)
-   {
-      cout << "insert(const value_type& entry) not implemented yet" << endl;
+   void sequence::insert(const value_type& entry){
+       if(is_item()){//if current exists then...
+           if(used >= capacity){
+               resize(int(1.5*capacity) + 1);
+           }
+           for(size_type index{used}; index > current_index; index--){
+               data[index] = data[index-1];
+           }
+           data[current_index] = entry;
+           used++;
+       } else{
+           if(used >= capacity){
+               resize(int(1.5*capacity) + 1);
+           }
+           for(size_type index{used}; index > 0; index--){
+               data[index] = data[index-1];
+           }
+           data[0] = entry;
+           current_index = 0;
+           used++;
+       }
    }
 
-   void sequence::attach(const value_type& entry)
-   {
-      cout << "attach(const value_type& entry) not implemented yet" << endl;
+   void sequence::attach(const value_type& entry){
+       if(is_item()){//if current exists then...
+           if(used >= capacity){
+               resize(int(1.5*capacity) + 1);
+           }
+           for(size_type index{used-1}; index > current_index+1; index--){
+               data[index] = data[index-1];
+           }
+           data[current_index+1] = entry;
+           current_index++;
+           used++;
+       } else{
+           if(used >= capacity){
+               resize(int(1.5*capacity) + 1);
+           }
+           data[used] = entry;
+           current_index = used;
+           used++;
+       }
    }
 
    void sequence::remove_current()
@@ -136,7 +174,7 @@ namespace CS3358_SP2023
 
    sequence::value_type sequence::current() const{
        assert(is_item());
-       return current_index;
+       return data[current_index];
    }
 }
 
