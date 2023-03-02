@@ -92,11 +92,7 @@ namespace CS3358_SP2023
 
    void sequence::advance(){
        assert(is_item());
-       if((is_item()) and (current_index < used)){
-           current_index++;
-       } else{
-           current_index = -1;
-       }
+       current_index++;
    }
 
    void sequence::insert(const value_type& entry){
@@ -150,9 +146,6 @@ namespace CS3358_SP2023
                data[index-1] = data[index];
            }
            used--;
-           if(current_index >= used){
-               current_index = -1;
-           }
        }
    }
 
