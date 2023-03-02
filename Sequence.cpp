@@ -56,7 +56,8 @@ namespace CS3358_SP2023
        data = new value_type[capacity];
    }
 
-   sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity){
+   sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity),
+   current_index(source.current_index){
       data = new value_type[capacity];
       for(size_type index{0}; index < used; index++){
           data[index] = source.data[index];
@@ -165,6 +166,7 @@ namespace CS3358_SP2023
           data = newData;
           capacity = source.capacity;
           used = source.used;
+          current_index = source.current_index;
       }
       return *this;
    }
