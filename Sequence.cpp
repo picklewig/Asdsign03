@@ -47,7 +47,6 @@ namespace CS3358_SP2023
 {
    // CONSTRUCTORS and DESTRUCTOR
    sequence::sequence(size_type initial_capacity): used(0), capacity(DEFAULT_CAPACITY){
-       assert(initial_capacity > 0);
        if(initial_capacity > 0){
            capacity = initial_capacity;
        } else{
@@ -59,7 +58,7 @@ namespace CS3358_SP2023
    sequence::sequence(const sequence& source): used(source.used), capacity(source.capacity),
    current_index(source.current_index){
       data = new value_type[capacity];
-      for(size_type index{0}; index < used; index++){
+      for(size_type index = 0; index < used; index++){
           data[index] = source.data[index];
       }
    }
@@ -70,7 +69,6 @@ namespace CS3358_SP2023
 
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity){
-       assert(new_capacity > 0);
        if(new_capacity < used){
            new_capacity = used;
        }
@@ -78,7 +76,7 @@ namespace CS3358_SP2023
            new_capacity = 1;
        }
        value_type* newSequence = new value_type[new_capacity];
-       for(size_type index{0}; index < used; index++){
+       for(size_type index = 0; index < used; index++){
            newSequence[index] = data[index];
        }
        delete[] data;
@@ -98,18 +96,18 @@ namespace CS3358_SP2023
    void sequence::insert(const value_type& entry){
        if(is_item()){//if current exists then...
            if(used >= capacity){
-               resize(int(1.5*capacity) + 1);
+               resize(size_type(1.5*capacity) + 1);
            }
-           for(size_type index{used}; index > current_index; index--){
+           for(size_type index = used; index > current_index; index--){
                data[index] = data[index-1];
            }
            data[current_index] = entry;
            used++;
        } else{
            if(used >= capacity){
-               resize(int(1.5*capacity) + 1);
+               resize(size_type(1.5*capacity) + 1);
            }
-           for(size_type index{used}; index > 0; index--){
+           for(size_type index = used; index > 0; index--){
                data[index] = data[index-1];
            }
            data[0] = entry;
@@ -121,9 +119,9 @@ namespace CS3358_SP2023
    void sequence::attach(const value_type& entry){
        if(is_item()){//if current exists then...
            if(used >= capacity){
-               resize(int(1.5*capacity) + 1);
+               resize(size_type(1.5*capacity) + 1);
            }
-           for(size_type index{used-1}; index > current_index+1; index--){
+           for(size_type index = used; index > current_index+1; index--){
                data[index] = data[index-1];
            }
            data[current_index+1] = entry;
@@ -131,7 +129,7 @@ namespace CS3358_SP2023
            used++;
        } else{
            if(used >= capacity){
-               resize(int(1.5*capacity) + 1);
+               resize(size_type(1.5*capacity) + 1);
            }
            data[used] = entry;
            current_index = used;
@@ -142,7 +140,7 @@ namespace CS3358_SP2023
    void sequence::remove_current(){
        assert(is_item());
        if(is_item()){
-           for(size_type index{current_index+1}; index < used; index++){
+           for(size_type index = current_index+1; index < used; index++){
                data[index-1] = data[index];
            }
            used--;
@@ -152,7 +150,7 @@ namespace CS3358_SP2023
    sequence& sequence::operator=(const sequence& source){
       if(this != &source){
           value_type* newData = new value_type[source.capacity];
-          for(size_type index{0}; index < source.used; index++){
+          for(size_type index = 0; index < source.used; index++){
               newData[index] = source.data[index];
           }
           delete[] data;
